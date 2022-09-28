@@ -1,0 +1,30 @@
+.logo__principal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8rem;
+}
+.registro {
+    font-family: 'Ubuntu';
+    margin-top: 200px;
+}
+.registro .row {
+    margin: 50px;
+}
+.registro .logo {
+    width: 15rem;
+    margin: 50px 0;
+}
+.columna:first-child {
+    background-color: var(--bs-dark);
+}
+.columna:nth-child(2) {
+    background-color: var(--bs-light);
+}
+.resaltado {
+    color: var(--bs-danger);
+}
+.foot {
+    font-size: 1.3rem;
+    margin-top: 100px;
+}

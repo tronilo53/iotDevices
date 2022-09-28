@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "alias": "Casa Valencia",
+        "serie": "DQQ50000001"
+    },
+    {
+        "id": 2,
+        "alias": "Jardín Principal",
+        "serie": "DQQI10-0000002"
+    },
+    {
+        "id": 3,
+        "alias": "Cocina Ana",
+        "serie": "DQQI50-0000005"
+    },
+    {
+        "id": 4,
+        "alias": "Lavadora Madrid",
+        "serie": "DQQ10-0000002"
+    }
+]
