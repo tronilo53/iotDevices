@@ -1,5 +1,5 @@
 <img class="logo__principal" src="../../../assets/logo/logo_small_icon_only.png" alt="">
-<div class="login">
+<div class="login animate__animated animate__fadeIn">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 columna text-center">
             <img class="logo" src="../../../assets/logo/logo_large.png" alt="logo.png">
@@ -24,8 +24,14 @@
                 <div class="mb-3">
                     <p>¿No tienes cuenta? <a [routerLink]="['/registro']">Haz Click Aquí</a></p>
                 </div>
-                <div class="mb-3 form-check">
+                <div class="mb-3" *ngIf="!loading">
                     <button type="submit" class="btn btn-outline-danger mb-3">Iniciar Sesión</button>
+                </div>
+                <div class="mb-3">
+                    <button type="button" *ngIf="loading" class="btn btn-outline-danger mb-3" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Iniciar Sesión
+                    </button>
                 </div>
             </form>
         </div>

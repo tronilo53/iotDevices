@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Dispositivos } from 'src/app/interfaces/response.interface';
 import { DispositivosService } from 'src/app/services/dispositivos.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { DispositivosService } from 'src/app/services/dispositivos.service';
 })
 export class DispositivosInstaladosComponent implements OnInit {
 
-  @Input() dispositivos: any[] = [];
+  @Input() dispositivos: Dispositivos[] = [];
 
   constructor(private __dispositivosService: DispositivosService) { }
 

@@ -15,8 +15,7 @@
 
     if($params->alias === '' || $params->serie === '') {
         $response = new Result();
-        $response -> result = 'error';
-        $response -> message = 'Todos los campos son requeridos';
+        $response -> result = 'Todos los campos son requeridos';
     
     }else {
         //verificar si existe el dispositivo;
@@ -28,8 +27,11 @@
             $stmt -> execute([ $params->serie ]);
             
             $row = $stmt->fetchAll();
+
             foreach($row as $rows) {
+
                 if($rows['estado'] == 'HAB') {
+
                     if($rows['propietario'] == 'NO') {
 
                         $stmt = $pdo -> prepare('INSERT INTO dispositivos(alias, serie, id_usuario) VALUES (?,?,?)');
@@ -37,28 +39,23 @@
 
                         if($stmt) {
                             $response = new Result();
-                            $response -> result = 'success';
-                            $response -> message = 'Dispositivo instalado';
+                            $response -> result = 'Dispositivo instalado';
                         }else {
                             $response = new Result();
-                            $response -> result = 'error';
-                            $response -> message = 'No se ha podido instalar el dispositivo';
+                            $response -> result = 'No se ha podido instalar el dispositivo';
                         }
                     }else {
                         $response = new Result();
-                        $response -> result = 'error';
-                        $response -> message = 'Este dispositivo ya tiene propietario';
+                        $response -> result = 'Este dispositivo ya tiene propietario';
                     }
                 }else {
                     $response = new Result();
-                    $response -> result = 'error';
-                    $response -> message = 'Este dispositivo está deshabilitado';
+                    $response -> result = 'Este dispositivo está deshabilitado';
                 }
             }
         }else {
             $response = new Result();
-            $response -> result = 'error';
-            $response -> message = 'No existe el dispositivo';
+            $response -> result = 'No existe el dispositivo';
         }
     }
 

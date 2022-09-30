@@ -15,8 +15,7 @@
 
     if($params->nombre === '' || $params->email === '' || $params->clave === '') {
         $response = new Result();
-        $response -> result = 'error';
-        $response -> message = 'Todos los campos son requeridos';
+        $response -> result = 'Todos los campos son requeridos';
     }else{
         //Verificar si ya existe el usuario;
         $stmt = $pdo -> prepare('SELECT COUNT(*) FROM usuarios WHERE email = ?');
@@ -24,8 +23,7 @@
 
         if($stmt->fetchColumn() > 0) {
             $response = new Result();
-            $response -> result = 'error';
-            $response -> message = 'El usuario ya existe';
+            $response -> result = 'El usuario ya existe';
         }else {
             //Hashear la contraseña;
             $clave_hasheada = password_hash($params->clave, PASSWORD_DEFAULT);
@@ -42,20 +40,23 @@
 
             if($stmt) {
 
+                $nombre = $params->nombre;
+                $email = $params->email;
+
                 $url = "https://merovingioapp.es/Api/guardVerify.php?token=" . $token;
 
-                $to = $params->email;
+                $to = $email;
                 $subject = 'Registro en iotDevices';
                 $message = '
                     <html>
                         <head>
                             <meta charset="utf-8">
-                            <title>iotDevices - Gestion de Dispositivos</title>
+                            <title>iotDevices - Gestión de Dispositivos</title>
                             <meta name="viewport" content="width=device-width, initial-scale=1">
-                            <meta http-equiv="Content-Language" content="en-us">
+                            <meta http-equiv="Content-Language" content="es-ES">
                         </head>
                         <body>
-                            <h2>Hola ' . $params->nombre . '! Ya estás a un paso más cerca de poder gestionar tu dispositivo con todo lo que eso conlleva.</h2>
+                            <h2>Hola ' . $nombre . '! Ya estás a un paso más cerca de poder gestionar tu dispositivo con todo lo que eso conlleva.</h2>
                             <p>Para poder seguir adelante tendrás que verificar tu cuenta pinchando en el enlace que tienes más abajo.</p>
                             <h3>Solo un paso más!</h3>
                             <a href="' . $url . '">' . $url . '</a>
@@ -73,19 +74,16 @@
                 
                 if(mail($to, $subject, $message, $headers)) {
                     $response = new Result();
-                    $response -> result = 'success';
-                    $response -> message = 'Usuario insertado';
+                    $response -> result = 'Usuario insertado';
                 }else {
                     $stmt = $pdo -> prepare('DELETE FROM usuarios WHERE email = ?');
                     $stmt -> execute([ $params->email ]);
                     $response = new Result();
-                    $response -> result = 'error';
-                    $response -> message = 'Usuario no insertado';
+                    $response -> result = 'Usuario no insertado';
                 }
             }else {
                 $response = new Result();
-                $response -> result = 'error';
-                $response -> message = 'Usuario no insertado';
+                $response -> result = 'Usuario no insertado';
             }
         }
     }

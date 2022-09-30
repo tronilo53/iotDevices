@@ -1,4 +1,15 @@
-<div class="dispositivos mt-5">
+<app-navbar [usuario]="usuario"></app-navbar>
+<div class="row text-center mt-5" *ngIf="__authGuard.loading || loading">
+  <div class="col-12">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div class="col-12 mt-3">
+    <h3>Autenticando...</h3>
+  </div>
+</div>
+<div class="dispositivos mt-5 animate__animated animate__fadeIn" *ngIf="!__authGuard.loading && !loading">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="card text-bg-secondary mb-3" style="max-width: 100%;">
@@ -11,7 +22,11 @@
                     <div class="mb-3">
                         <input class="form-control" type="text" name="serie" (focus)="resetearBordesCampos('serie')" placeholder="Nº Serie..." #serie [(ngModel)]="datosInstalacion.serie">
                     </div>
-                    <button type="submit" class="btn btn-primary">Instalar</button>
+                    <button type="submit" class="btn btn-primary" *ngIf="!loadingBtn">Instalar</button>
+                    <button type="submit" class="btn btn-primary" disabled *ngIf="loadingBtn">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Instalar
+                    </button>
                   </form>
                 </div>
               </div>

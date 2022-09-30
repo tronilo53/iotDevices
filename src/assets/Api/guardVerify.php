@@ -80,7 +80,7 @@
 
                     $nombre = $rows['nombre'];
 
-                    $stmt_up = $pdo -> prepare('UPDATE usuarios SET token = "", estado = "HAB" WHERE token = ?');
+                    $stmt_up = $pdo -> prepare('UPDATE usuarios SET estado = "HAB" WHERE token = ?');
                     $stmt_up -> execute([ $_GET['token'] ]);
 
                     if($stmt_up) {

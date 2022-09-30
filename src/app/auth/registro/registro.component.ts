@@ -26,6 +26,7 @@ export class RegistroComponent implements OnInit {
   };
 
   public visibilidad: boolean = false;
+  public loading: boolean = false;
 
   public anio: number = new Date().getFullYear();
 
@@ -71,17 +72,39 @@ export class RegistroComponent implements OnInit {
         this.__renderer.setStyle(this.email.nativeElement, 'border', '1px solid tomato');
       }else {
 
-        Swal.fire({ text: 'Cargando...' });
-        Swal.showLoading();
+        this.loading = true;
         //peticion a la api para registrar el usuario;
         combineLatest([
-
           this.__authService.registrarUsuario(this.datos)
         ]).subscribe(([response]) => {
-
-          console.log(response);
-          Swal.close();
+          switch (response.result) {
+            case 'El usuario ya existe':
+              Swal.close();
+              this.__modales.successHtml(
+                `
+                <p>${this.datos.nombre}, Gracias por registrarte en iotDevices.</p>
+                <p>Si el email no está registrado en nuestra BBDD, recibirás un email para completar el proceso.</p>
+                <p><strong>* Recuerda mirar en la bandeja de Spam</strong></p>
+                `
+                );  
+              break;
+            case 'Usuario no insertado':
+              Swal.close();
+              this.__modales.error('No se ha podido completar el registro, Inténtalo de nuevo más tarde');
+              break;
+            case 'Usuario insertado':
+              Swal.close();
+              this.__modales.successHtml(
+                `
+                <p>${this.datos.nombre}, Gracias por registrarte en iotDevices.</p>
+                <p>Si el email no está registrado en nuestra BBDD, recibirás un email para completar el proceso.</p>
+                <p><strong>* Recuerda mirar en la bandeja de Spam</strong></p>
+                `
+                );
+              break;
+          }
         });
+        this.loading = false;
       }
     }
   }

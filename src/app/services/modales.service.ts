@@ -9,10 +9,13 @@ export class ModalesService {
   constructor() { }
 
   public success(message: string): void {
-    Swal.fire({ icon: 'success', title: 'Success', text: message });
+    Swal.fire({ icon: 'success', title: 'Hurra!', text: message });
+  }
+  public successHtml(html: string): void {
+    Swal.fire({ icon: 'success', title: 'Hurra!', html: html });
   }
   public error(message: string): void {
-    Swal.fire({ icon: 'error', title: 'Error', text: message });
+    Swal.fire({ icon: 'error', title: 'Ups!', text: message });
   }
   public notificacion(title: string): void {
     const Toast = Swal.mixin({

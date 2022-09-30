@@ -4,8 +4,10 @@
             <div class="card mb-3" style="max-width: 100%;">
                 <div class="card-body">
                     <h3 class="card-title mb-3">Dispositivos Instalados</h3>
-                    <div class="alert alert-warning mt-3" role="alert" *ngIf="dispositivos.length === 0">No Hay Dispositivos Instalados</div>
-                    <div class="table-responsive-md">
+
+                    <div class="alert alert-danger" *ngIf="dispositivos.length == 0" role="alert">No tienes dispositivos instalados</div>
+
+                    <div class="table-responsive-md" *ngIf="dispositivos.length > 0">
                         <table class="table">
                             <thead>
                                 <tr>
